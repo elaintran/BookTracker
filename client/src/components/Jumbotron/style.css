@@ -1,5 +1,8 @@
 .jumbotron {
     background-color: #292e33;
+    border-radius: 0;
+    padding: 6rem 10% 3rem;
+    margin-bottom: 0;
 }
 
 .title {
