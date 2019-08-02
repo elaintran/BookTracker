@@ -1,7 +1,5 @@
-.card-container {
-    position: relative;
+.results {
     display: flex;
-    width: 50%;
 }
 
 .result-card {
@@ -44,15 +42,4 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis; 
-}
-
-.fa-ellipsis-h {
-    position: absolute;
-    top: 3rem;
-    right: 2.5rem;
-    z-index: 200;
-}
-
-.fa-ellipsis-h:hover {
-    cursor: pointer;
 }

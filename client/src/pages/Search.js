@@ -5,7 +5,9 @@ import SectionTitle from "../components/SectionTitle/index.js";
 import FlexContainer from "../components/FlexContainer/index.js";
 import Tag from "../components/Tag/index.js";
 import Wrapper from "../components/Wrapper/index.js";
+import Card from "../components/Card/index.js";
 import Results from "../components/Results/index.js";
+import Dropdown from "../components/Dropdown/index.js";
 import API from "../utils/API.js";
 
 class Search extends Component {
@@ -17,10 +19,23 @@ class Search extends Component {
     }
 
     searchBooks = query => {
-        API.findBooks(query).then(response => this.setState({
-            results: response.data.items,
-            search: true
-        }));
+        API.findBooks(query).then(response => {
+            const results = [];
+            for (let i = 0; i < response.data.items.length; i++) {
+                let resultObj = {};
+                resultObj.title = response.data.items[i].volumeInfo.title;
+                resultObj.author = response.data.items[i].volumeInfo.authors.toString().replace(/,/g, ", ");
+                resultObj.description = response.data.items[i].volumeInfo.description;
+                resultObj.image = response.data.items[i].volumeInfo.imageLinks.thumbnail;
+                resultObj.link = response.data.items[i].volumeInfo.canonicalVolumeLink;
+                resultObj.date = response.data.items[i].volumeInfo.publishedDate;
+                results.push(resultObj);
+            }
+            this.setState({
+                results: results,
+                search: true
+            })
+        });
     }
 
     handleInput = event => {
@@ -35,7 +50,6 @@ class Search extends Component {
 
     saveBook = data => {
         API.saveBook(data).then(response => console.log(response));
-        // console.log(data);
     }
 
     renderSectionTitle() {
@@ -51,17 +65,16 @@ class Search extends Component {
     renderResults() {
         if (this.state.results !== undefined) {
             return this.state.results.map(results =>
-                <Results
-                    bookData={{
-                        title: results.volumeInfo.title,
-                        author: results.volumeInfo.authors.toString().replace(/,/g, ", "),
-                        description: results.volumeInfo.description,
-                        image: results.volumeInfo.imageLinks.thumbnail,
-                        link: results.volumeInfo.canonicalVolumeLink,
-                        date: results.volumeInfo.publishedDate
-                    }}
-                    save={this.saveBook}
-                />
+                <Card>
+                    <Dropdown>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div className="dropdown-item" onClick={() => this.saveBook(results)}>Add to Reading</div>
+                            <div className="dropdown-item">Add to Plan to Read</div>
+                            <div className="dropdown-item">Add to Completed</div>
+                        </div>
+                    </Dropdown>
+                    <Results bookData={results} />
+                </Card>
             )
         } else {
             return false;
@@ -70,7 +83,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div style={{width: "100%"}}>
+            <div>
                 <Jumbotron>
                     <h1 className="title">Search for the <span className="emphasis">Perfect</span> Book</h1>
                     <h4 className="subtitle">Explore the Google Books database for a new read.</h4>

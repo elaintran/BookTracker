@@ -1,13 +1,9 @@
 import React from "react";
-import Dropdown from "../Dropdown/index.js";
 import "./style.css";
 
 function Results(props) {
     return (
-        <div className="card-container">
-            <Dropdown bookData={props.bookData} save={props.save}>
-                <i className="fas fa-ellipsis-h" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            </Dropdown>
+        <div className="results">
             <a href={props.bookData.link} target="_blank" className="result-card">
                 <div className="result-image">
                     <img src={props.bookData.image} className="book-image" alt={props.bookData.title}/> 
