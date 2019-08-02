@@ -14,5 +14,14 @@ module.exports = {
         db.Book.create(req.body)
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
+    },
+    //remove individual book from database
+    remove: (req, res) => {
+        db.Book.removeOne({ _id: req.params.id })
+            .then(data => res.json(data))
+            .catch(err => res.status(422).json(err));
+    },
+    update: (req, res) => {
+        db.Book.update()
     }
 }

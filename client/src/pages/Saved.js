@@ -25,6 +25,7 @@ class Saved extends Component {
 
     deleteBook = (id) => {
         API.deleteBook(id).then(this.getBooks());
+        console.log(id);
     }
 
     renderResults() {
