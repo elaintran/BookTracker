@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
-require("./routes/apiRoutes.js")(app);
-require("./routes/htmlRoutes.js")(app);
+const routes = require("./routes");
+app.use(routes);
 
 // connect to mongo database
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");

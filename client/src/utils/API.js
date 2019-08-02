@@ -10,11 +10,11 @@ export default {
         return axios.get("/api/books");
     },
     //allow users to save books on the search page
-    saveBook: (data) => {
+    saveBook: data => {
         return axios.post("/api/books", data);
     },
     //allow users to delete their books from the saved page
-    deleteBook: (id) => {
+    deleteBook: id => {
         return axios.delete(`/api/books/${id}`);
     }
 }

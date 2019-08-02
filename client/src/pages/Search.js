@@ -33,8 +33,9 @@ class Search extends Component {
         this.searchBooks(this.state.query);
     }
 
-    saveBook = () => {
-        API.saveBook().then(data => console.log(data));
+    saveBook = data => {
+        API.saveBook(data).then(response => console.log(response));
+        // console.log(data);
     }
 
     renderSectionTitle() {
@@ -51,13 +52,15 @@ class Search extends Component {
         if (this.state.results !== undefined) {
             return this.state.results.map(results =>
                 <Results
-                    title={results.volumeInfo.title}
-                    author={results.volumeInfo.authors.toString().replace(/,/g, ", ")}
-                    description={results.volumeInfo.description}
-                    image={results.volumeInfo.imageLinks.thumbnail}
-                    link={results.volumeInfo.canonicalVolumeLink}
-                    date={results.volumeInfo.publishedDate}
-                    // save={this.saveBook}
+                    bookData={{
+                        title: results.volumeInfo.title,
+                        author: results.volumeInfo.authors.toString().replace(/,/g, ", "),
+                        description: results.volumeInfo.description,
+                        image: results.volumeInfo.imageLinks.thumbnail,
+                        link: results.volumeInfo.canonicalVolumeLink,
+                        date: results.volumeInfo.publishedDate
+                    }}
+                    save={this.saveBook}
                 />
             )
         } else {

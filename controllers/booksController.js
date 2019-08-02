@@ -9,10 +9,9 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     create: (req, res) => {
-        console.log(req.body);
-        // db.Book
-        //     .create(req.body)
-        //     .then(data => res.json(data))
-        //     .catch(err => res.status(422).json(err));
+        // console.log(req.body.title);
+        db.Book.create({title: req.body.title})
+            .then(data => res.json(data))
+            .catch(err => res.status(422).json(err));
     }
 }
