@@ -16,6 +16,10 @@ const bookSchema = new Schema({
         type: String,
         required: false
     },
+    rating: {
+        type: Number,
+        required: false
+    },
     //need a placeholder image
     image: {
         type: String,
