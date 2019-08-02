@@ -18,19 +18,23 @@ class Search extends Component {
         search: false
     }
 
+    //search the google books api
     searchBooks = query => {
         API.findBooks(query).then(response => {
             const results = [];
+            //only push in information utilized in this applicaiton
             for (let i = 0; i < response.data.items.length; i++) {
                 let resultObj = {};
                 resultObj.title = response.data.items[i].volumeInfo.title;
-                resultObj.author = response.data.items[i].volumeInfo.authors.toString().replace(/,/g, ", ");
+                let author = response.data.items[i].volumeInfo.authors;
+                (author === undefined) ? resultObj.author = "Anonymous" : resultObj.author = author;
                 resultObj.description = response.data.items[i].volumeInfo.description;
                 resultObj.image = response.data.items[i].volumeInfo.imageLinks.thumbnail;
                 resultObj.link = response.data.items[i].volumeInfo.canonicalVolumeLink;
                 resultObj.date = response.data.items[i].volumeInfo.publishedDate;
                 results.push(resultObj);
             }
+            //change search to true in order to display results
             this.setState({
                 results: results,
                 search: true
@@ -38,20 +42,28 @@ class Search extends Component {
         });
     }
 
+    //update query value every time user inputs something in the search
     handleInput = event => {
         let value = event.target.value;
         this.setState({ query: value });
     }
 
+    //when user submits a query, prevent page from refreshing and make an api call to
+    //google books
     handleSubmit = event => {
         event.preventDefault();
         this.searchBooks(this.state.query);
     }
 
-    saveBook = data => {
-        API.saveBook(data).then(response => console.log(response));
+    //add reading status to data and send as a post request
+    saveBook = (data, status) => {
+        let savedData = data;
+        savedData.status = status;
+        console.log(savedData);
+        API.saveBook(savedData);
     }
 
+    //only show results section title if user has submitted a search
     renderSectionTitle() {
         if (this.state.results !== undefined && this.state.search) {
             return <SectionTitle>Displaying {this.state.results.length} Results</SectionTitle>;
@@ -68,9 +80,9 @@ class Search extends Component {
                 <Card>
                     <Dropdown>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div className="dropdown-item" onClick={() => this.saveBook(results)}>Add to Reading</div>
-                            <div className="dropdown-item">Add to Plan to Read</div>
-                            <div className="dropdown-item">Add to Completed</div>
+                            <div className="dropdown-item" onClick={() => this.saveBook(results, "Reading")}>Add to Reading</div>
+                            <div className="dropdown-item" onClick={() => this.saveBook(results, "Plan to Read")}>Add to Plan to Read</div>
+                            <div className="dropdown-item" onClick={() => this.saveBook(results, "Completed")}>Add to Completed</div>
                         </div>
                     </Dropdown>
                     <Results bookData={results} />

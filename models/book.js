@@ -9,7 +9,7 @@ const bookSchema = new Schema({
     //some books don't have authors, so required is false
     //will write a method to convert unknown author to anonymous
     author: {
-        type: String,
+        type: Array,
         required: false
     },
     description: {
@@ -22,6 +22,10 @@ const bookSchema = new Schema({
         required: false
     },
     link: {
+        type: String,
+        required: true
+    },
+    status: {
         type: String,
         required: true
     },

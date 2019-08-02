@@ -17,11 +17,11 @@ module.exports = {
     },
     //remove individual book from database
     remove: (req, res) => {
-        db.Book.removeOne({ _id: req.params.id })
+        db.Book.remove({ _id: req.params.id })
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
-    },
-    update: (req, res) => {
-        db.Book.update()
     }
+    // update: (req, res) => {
+    //     db.Book.update()
+    // }
 }

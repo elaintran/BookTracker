@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
+//uses the route information on "routes/index.js"
 app.use(routes);
 
 // connect to mongo database

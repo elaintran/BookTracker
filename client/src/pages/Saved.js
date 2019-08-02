@@ -23,14 +23,20 @@ class Saved extends Component {
         });
     }
 
-    deleteBook = (id) => {
+    deleteBook = id => {
         API.deleteBook(id).then(this.getBooks());
         console.log(id);
     }
 
-    renderResults() {
-        if (this.state.results !== undefined && this.state.results.length !== 0) {
-            return this.state.results.map(results =>
+    // checkStatus = status => {
+    //     const readingStatus = this.state.results.filter(results => results.status === status);
+
+    // }
+
+    renderResults(status) {
+        let readingStatus = this.state.results.filter(results => results.status === status);
+        if (readingStatus !== undefined && readingStatus.length !== 0) {
+            return readingStatus.map(results =>
                 <Card>
                     <Dropdown>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -56,11 +62,12 @@ class Saved extends Component {
                     <h4 className="subtitle">Monitor your reading progress.</h4>
                 </Jumbotron>
                 <Wrapper>
-                    {/* <SectionTitle>Want To Read</SectionTitle>
                     <SectionTitle>Currently Reading</SectionTitle>
-                    <SectionTitle>Completed</SectionTitle> */}
-                    <SectionTitle>All Saved Books</SectionTitle>
-                    {this.renderResults()}
+                    {this.renderResults("Reading")}
+                    <SectionTitle>Completed</SectionTitle>
+                    {this.renderResults("Completed")}
+                    <SectionTitle>Plan to Read</SectionTitle>
+                    {this.renderResults("Plan to Read")}
                 </Wrapper>
             </div>
         )

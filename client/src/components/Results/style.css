@@ -1,5 +1,6 @@
 .results {
     display: flex;
+    width: 100%;
 }
 
 .result-card {
@@ -10,6 +11,7 @@
     border-radius: 7px;
     box-shadow: 5px 5px 10px rgba(000, 000, 000, 0.03);
     position: relative;
+    width: 100%;
 }
 
 .result-image {
