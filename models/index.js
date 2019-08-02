@@ -1,4 +1,6 @@
+const Book = require("./book.js");
+
 //export to controller
 module.exports = {
-    Book: require("./book.js")
+    Book: Book
 };
