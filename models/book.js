@@ -8,16 +8,12 @@ const bookSchema = new Schema({
     },
     //some books don't have authors, so required is false
     //will write a method to convert unknown author to anonymous
-    authors: [{
+    author: [{
         type: String,
         required: false
     }],
     description: {
         type: String,
-        required: false
-    },
-    rating: {
-        type: Number,
         required: false
     },
     //need a placeholder image

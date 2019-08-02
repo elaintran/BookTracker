@@ -17,17 +17,10 @@ class Search extends Component {
     }
 
     searchBooks = query => {
-        // API.findBooks(query).then(response => this.setState({
-        //     results: response.data.items,
-        //     search: true
-        // }));
-        API.findBooks(query).then(response => {
-            this.setState({
-                results: response.data.items,
-                search: true
-            });
-            console.log(this.state.results);
-        });
+        API.findBooks(query).then(response => this.setState({
+            results: response.data.items,
+            search: true
+        }));
     }
 
     handleInput = event => {
@@ -38,6 +31,10 @@ class Search extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.searchBooks(this.state.query);
+    }
+
+    saveBook = () => {
+        API.saveBook().then(data => console.log(data));
     }
 
     renderSectionTitle() {
@@ -57,9 +54,10 @@ class Search extends Component {
                     title={results.volumeInfo.title}
                     author={results.volumeInfo.authors.toString().replace(/,/g, ", ")}
                     description={results.volumeInfo.description}
+                    image={results.volumeInfo.imageLinks.thumbnail}
                     link={results.volumeInfo.canonicalVolumeLink}
                     date={results.volumeInfo.publishedDate}
-                    image={results.volumeInfo.imageLinks.thumbnail}
+                    // save={this.saveBook}
                 />
             )
         } else {
@@ -69,7 +67,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{width: "100%"}}>
                 <Jumbotron>
                     <h1 className="title">Search for the <span className="emphasis">Perfect</span> Book</h1>
                     <h4 className="subtitle">Explore the Google Books database for a new read.</h4>

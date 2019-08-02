@@ -4,7 +4,7 @@ import "./style.css";
 function SectionTitle(props) {
     return (
         <div className="section-title">
-            <h2>{props.children}</h2>
+            <h3>{props.children}</h3>
         </div>
     );
 }
