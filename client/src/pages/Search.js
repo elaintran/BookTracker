@@ -2,12 +2,16 @@ import axios from "axios";
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/index.js";
 import SearchBar from "../components/SearchBar/index.js";
+import FlexContainer from "../components/FlexContainer/index.js";
+import Tag from "../components/Tag/index.js";
+import Wrapper from "../components/Wrapper/index.js";
 import Results from "../components/Results/index.js";
 // import API from "../utils/API.js";
 
 class Search extends Component {
     state = {
         search: "",
+        tags: ["Light Novel", "Literature", "Romance", "Sci-Fi", "Fiction"],
         results: []
     }
 
@@ -15,13 +19,6 @@ class Search extends Component {
         axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query)
             .then(response => {
                 this.setState({results: response.data.items});
-                // title
-                // console.log(this.state.results);
-                // console.log(this.state.results[0].volumeInfo.averageRating);
-                //console.log(this.state.results[0].volumeInfo.canonicalVolumeLink)
-                //console.log(this.state.results[0].volumeInfo.description)
-                //console.log(this.state.results[0].volumeInfo.publishedDate)
-                //console.log(this.state.results[0].volumeInfo.imageLinks.thumbnail)
             });
     }
 
@@ -40,7 +37,10 @@ class Search extends Component {
             <div>
                 <Jumbotron />
                 <SearchBar change={this.handleInput} submit={this.handleSubmit}/>
-                {/* <div className="wrapper"> */}
+                <Wrapper>
+                    <FlexContainer>
+                        {this.state.tags.map(tags => <Tag name={tags} click={this.searchBooks} />)}
+                    </FlexContainer>
                     {this.state.results.map(results =>
                         <Results
                             title={results.volumeInfo.title}
@@ -52,7 +52,7 @@ class Search extends Component {
                             image={results.volumeInfo.imageLinks.thumbnail}
                         />
                     )}
-                {/* </div> */}
+                </Wrapper>
             </div>
         )
     }
