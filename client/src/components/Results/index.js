@@ -9,7 +9,7 @@ function Results(props) {
                     <img src={props.image} className="book-image" alt={props.title}/> 
                 </div>
                 <div className="book-information">
-                    <i class="fas fa-ellipsis-h"></i>
+                    <i className="fas fa-ellipsis-h"></i>
                     <h5>{props.title}</h5>
                     <h6>By {props.author}</h6>
                     <p>{props.description}</p>
