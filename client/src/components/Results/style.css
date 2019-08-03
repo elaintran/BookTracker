@@ -45,3 +45,33 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+
+@media screen and (max-width: 950px) {
+    .result-image {
+        width: 20%;
+    }
+    .book-information {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .result-image {
+        width: 30%;
+    }
+    .book-information {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .book-information {
+        margin-left: 1.5rem;
+    }
+    .book-information h5 {
+        width: 88%;
+    }
+    .result-card {
+        padding: 1rem;
+    }
+}

@@ -13,7 +13,6 @@ import API from "../utils/API.js";
 class Search extends Component {
     state = {
         query: "",
-        tags: ["Light Novel", "Literature", "Romance", "Sci-Fi", "Fiction"],
         results: [],
         search: false
     }
@@ -63,6 +62,11 @@ class Search extends Component {
         API.saveBook(savedData);
     }
 
+    renderTags() {
+        const tags = ["Adventure", "Comedy", "Light Novel", "Literature", "Romance", "Sci-Fi", "Fiction"];
+        return tags.map(tags => <Tag name={tags} click={this.searchBooks} />);
+    }
+
     //only show results section title if user has submitted a search
     renderSectionTitle() {
         if (this.state.results !== undefined && this.state.search) {
@@ -102,7 +106,7 @@ class Search extends Component {
                 </Jumbotron>
                 <SearchBar change={this.handleInput} submit={this.handleSubmit}/>
                 <FlexContainer>
-                    {this.state.tags.map(tags => <Tag name={tags} click={this.searchBooks} />)}
+                    {this.renderTags()}
                 </FlexContainer>
                 <Wrapper>
                     {this.renderSectionTitle()}
