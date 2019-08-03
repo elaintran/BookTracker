@@ -16,5 +16,8 @@ export default {
     //allow users to delete their books from the saved page
     deleteBook: id => {
         return axios.delete(`/api/books/${id}`);
+    },
+    updateBook: (id, status) => {
+        return axios.put(`/api/books/${id}`, status);
     }
 }

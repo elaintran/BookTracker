@@ -10,7 +10,7 @@ router.route("/")
 
 //route to "/api/books/:id"
 router.route("/:id")
-    // .put(booksController.update)
+    .put(booksController.update)
     .delete(booksController.remove);
 
 module.exports = router;

@@ -25,7 +25,10 @@ class Saved extends Component {
 
     deleteBook = id => {
         API.deleteBook(id).then(this.getBooks());
-        console.log(id);
+    }
+
+    changeStatus = (id, status) => {
+        API.updateBook(id, {status: status}).then(this.getBooks());
     }
 
     checkResults() {
@@ -54,9 +57,9 @@ class Saved extends Component {
                         <Card>
                             <Dropdown>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <div className="dropdown-item">Move to Reading</div>
-                                    <div className="dropdown-item">Move to Plan to Read</div>
-                                    <div className="dropdown-item">Move to Completed</div>
+                                    <div className="dropdown-item" onClick={() => this.changeStatus(results._id, "Reading")}>Move to Reading</div>
+                                    <div className="dropdown-item" onClick={() => this.changeStatus(results._id, "Plan to Read")}>Move to Plan to Read</div>
+                                    <div className="dropdown-item" onClick={() => this.changeStatus(results._id, "Completed")}>Move to Completed</div>
                                     <div className="dropdown-item" onClick={() => this.deleteBook(results._id)}>Delete Book</div>
                                 </div>
                             </Dropdown>

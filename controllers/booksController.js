@@ -20,8 +20,10 @@ module.exports = {
         db.Book.remove({ _id: req.params.id })
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
+    },
+    update: (req, res) => {
+        db.Book.update({_id: req.params.id}, {status: req.body.status})
+            .then(data => res.json(data))
+            .catch(err => res.status(422).json(err));
     }
-    // update: (req, res) => {
-    //     db.Book.update()
-    // }
 }
