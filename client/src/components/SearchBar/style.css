@@ -11,7 +11,11 @@
     border-radius: 5px;
     box-shadow: 5px 5px 10px rgba(000, 000, 000, 0.03);
     font-weight: 600;
-    padding: 1rem 1.5rem;
+    padding: 1rem 5.5rem 1rem 1.5rem;
+}
+
+.search-bar:hover, .search-bar:focus {
+    outline: none;
 }
 
 .search-button {

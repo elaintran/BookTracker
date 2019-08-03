@@ -17,6 +17,7 @@ export default {
     deleteBook: id => {
         return axios.delete(`/api/books/${id}`);
     },
+    //change reading status of book
     updateBook: (id, status) => {
         return axios.put(`/api/books/${id}`, status);
     }

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import Jumbotron from "../components/Jumbotron/index.js";
-import Wrapper from "../components/Wrapper/index.js";
-import Results from "../components/Results/index.js";
-import SectionTitle from "../components/SectionTitle/index.js";
-import Card from "../components/Card/index.js";
-import Dropdown from "../components/Dropdown/index.js";
+import Jumbotron from "../components/Jumbotron";
+import Wrapper from "../components/Wrapper";
+import Section from "../components/Section";
+import SectionTitle from "../components/SectionTitle";
+import Card from "../components/Card";
+import Results from "../components/Results";
+import Dropdown from "../components/Dropdown";
 import API from "../utils/API.js";
 
 class Saved extends Component {
@@ -12,6 +13,7 @@ class Saved extends Component {
         results: []
     }
 
+    //display all saved books from the database on load
     componentWillMount() {
         this.getBooks();
     }
@@ -19,18 +21,22 @@ class Saved extends Component {
     getBooks = () => {
         API.getBooks().then(response => {
             this.setState({ results: response.data });
-            console.log(this.state.results);
         });
     }
 
+    //delete a specific book
     deleteBook = id => {
         API.deleteBook(id).then(this.getBooks());
     }
 
+    //change status and move book to a different section
     changeStatus = (id, status) => {
         API.updateBook(id, {status: status}).then(this.getBooks());
     }
 
+    //check if any books are saved
+    //if no books, notify that there are no books saved,
+    //else render saved book sections
     checkResults() {
         if (this.state.results.length === 0 || this.state.results === undefined) {
             return <Wrapper>
@@ -38,20 +44,21 @@ class Saved extends Component {
             </Wrapper>;
         } else {
             return (
-                <div>
+                <Wrapper>
                     {this.renderResults("Reading")}
                     {this.renderResults("Completed")}
                     {this.renderResults("Plan to Read")}
-                </div>
+                </Wrapper>
             );
         }
     }
 
+    //display sections depending on if there are books in that section
     renderResults(status) {
         let readingStatus = this.state.results.filter(results => results.status === status);
         if (readingStatus !== undefined && readingStatus.length !== 0) {
             return (
-                <Wrapper>
+                <Section>
                     <SectionTitle>{status}</SectionTitle>
                     {readingStatus.map(results =>
                         <Card>
@@ -66,7 +73,7 @@ class Saved extends Component {
                             <Results bookData={results} />
                         </Card>
                     )}
-                </Wrapper>
+                </Section>
             );
         } else {
             return false;

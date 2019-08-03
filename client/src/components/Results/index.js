@@ -4,7 +4,7 @@ import "./style.css";
 function Results(props) {
     return (
         <div className="results">
-            <a href={props.bookData.link} target="_blank" className="result-card">
+            <a href={props.bookData.link} target="_blank" rel="noopener noreferrer" className="result-card">
                 <div className="result-image">
                     <img src={props.bookData.image} className="book-image" alt={props.bookData.title}/> 
                 </div>

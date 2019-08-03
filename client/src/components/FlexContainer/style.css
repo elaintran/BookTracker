@@ -3,3 +3,9 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 870px) {
+    .flex-container {
+        justify-content: center;
+    }
+}
