@@ -28,29 +28,45 @@ class Saved extends Component {
         console.log(id);
     }
 
-    // checkStatus = status => {
-    //     const readingStatus = this.state.results.filter(results => results.status === status);
-
-    // }
+    checkResults() {
+        if (this.state.results.length === 0 || this.state.results === undefined) {
+            return <Wrapper>
+                <SectionTitle>No books currently saved.</SectionTitle>
+            </Wrapper>;
+        } else {
+            return (
+                <div>
+                    {this.renderResults("Reading")}
+                    {this.renderResults("Completed")}
+                    {this.renderResults("Plan to Read")}
+                </div>
+            );
+        }
+    }
 
     renderResults(status) {
         let readingStatus = this.state.results.filter(results => results.status === status);
         if (readingStatus !== undefined && readingStatus.length !== 0) {
-            return readingStatus.map(results =>
-                <Card>
-                    <Dropdown>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div className="dropdown-item">Move to Reading</div>
-                            <div className="dropdown-item">Move to Plan to Read</div>
-                            <div className="dropdown-item">Move to Completed</div>
-                            <div className="dropdown-item" onClick={() => this.deleteBook(results._id)}>Delete Book</div>
-                        </div>
-                    </Dropdown>
-                    <Results bookData={results} />
-                </Card>
-            )
+            return (
+                <Wrapper>
+                    <SectionTitle>{status}</SectionTitle>
+                    {readingStatus.map(results =>
+                        <Card>
+                            <Dropdown>
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div className="dropdown-item">Move to Reading</div>
+                                    <div className="dropdown-item">Move to Plan to Read</div>
+                                    <div className="dropdown-item">Move to Completed</div>
+                                    <div className="dropdown-item" onClick={() => this.deleteBook(results._id)}>Delete Book</div>
+                                </div>
+                            </Dropdown>
+                            <Results bookData={results} />
+                        </Card>
+                    )}
+                </Wrapper>
+            );
         } else {
-            return <SectionTitle>No books currently saved.</SectionTitle>;
+            return false;
         }
     }
 
@@ -61,14 +77,7 @@ class Saved extends Component {
                     <h1 className="title">View All Your <span className="emphasis">Saved</span> Books</h1>
                     <h4 className="subtitle">Monitor your reading progress.</h4>
                 </Jumbotron>
-                <Wrapper>
-                    <SectionTitle>Currently Reading</SectionTitle>
-                    {this.renderResults("Reading")}
-                    <SectionTitle>Completed</SectionTitle>
-                    {this.renderResults("Completed")}
-                    <SectionTitle>Plan to Read</SectionTitle>
-                    {this.renderResults("Plan to Read")}
-                </Wrapper>
+                {this.checkResults()}
             </div>
         )
     }

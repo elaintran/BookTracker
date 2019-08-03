@@ -10,7 +10,7 @@ function Results(props) {
                 </div>
                 <div className="book-information">
                     <h5>{props.bookData.title}</h5>
-                    <h6>By {props.bookData.author.toString(/,/g, ", ")}</h6>
+                    <h6>By {props.bookData.author.toString().replace(/,/g, ", ")}</h6>
                     <p>{props.bookData.description}</p>
                 </div>
             </a>
