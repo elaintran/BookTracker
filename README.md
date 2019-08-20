@@ -1,5 +1,5 @@
 # BookTracker
-BookTracker is a MERN application that allows users to search for books via the Google Books API, add books to their reading list, and monitor their completion status.
+BookTracker is a MERN stack, single-page application (SPA) that allows users to browse books utilizing the Google Books API, add books to their reading list, and monitor their completion status. All of the saved books are stored in the MongoDB database, including the title, author, thumbnail, link, and status.
 
 ## Development Process
 * Before submitting a search, the state of query input needs to be updated through incorporating a function that checks the `event.target.value` inside the input element. Submitting a search through either the search bar or selecting a tag from the list sends a `GET` request to Axios to call the Google Books API. At most 10 results are returned and displayed on the page.
