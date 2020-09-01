@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // connect to mongo database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
+mongoose.connect(process.env.DB_URI || "mongodb://localhost/googlebooks");
 
 // start server; react is listening on 3000, so need to use 3001
 app.listen(PORT, () => console.log(`API Server now listening on PORT ${PORT}!`));
